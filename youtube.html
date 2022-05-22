@@ -4,137 +4,658 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>無痕未登入模式切版</title>
-  <!--css reset 、 外部樣式表。注意順序蓋過-->
+  <title>Document</title>
+  <!--css reset。注意順序蓋過-->
   <link rel="stylesheet" href="./css/reset.css">
   <!-- google font -->
-
-  <!-- font awesome 解壓縮後 css目錄複製 all.min.css或all.css整個webfonts字型目錄-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap">
+  <!-- font awesome 解壓縮後，css目錄複製 all.min.css或all.css整個webfonts字型目錄-->
   <link rel="stylesheet" href="./css/all.css">
+  <!-- 此檔案的外部樣式表 -->
   <link rel="stylesheet" href="./css/style.css">
-  
+  <!-- ./webfonts/  => font awesome  -->
+  <!-- <link rel="stylesheet" href="./webfonts/"> -->
+
   <style>
-    /* 抓瀏覽器高度 */
+    /* 重新排版 
+        1.高度用px較好，%不易計算:行高對齊時，%數值會過大
+        2.乖乖定位，只用%推開，縮放位置會大跑版(navbar1)
+        3.盡量保持各區塊寬100%? */
+    
+    *{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      box-sizing: border-box;
+      /* debug用 */
+      /* outline: 1px solid purple; */
+    }
     html,
     body{
       height: 100%;
+      overflow: hidden;
     }
-    /* #main{
-      暫border: 1px solid black;
-      內容用完再刪 width: 75%;
-      height: 100%;
-      position: relative;
-      margin: auto;
-    } */
-
-    #header{
-      background-color: palevioletred;
+    a{
+      text-decoration: none;
+      color: black;
+      /* 要用再各自開 */
+      /* display: block; */
+    }
+    /* 基本版面 */
+    #navbar01{
+      /* background-color: pink; */
+      border-bottom: 1px solid lightgray;
       width: 100%;
-      height: 5%;
+      height: 55px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      /* overflow: hidden; */
+    }
+    #navbar02{
+      /* background-color: lemonchiffon; */
+      border-bottom: 1px solid lightgray;
+      
+      position: fixed;
+      left: 235px;
+      top: 55px;
+      width: calc(100% - 235px);
+      height: 55px;
+      text-align: center;
+      font-size: 0;
+      
+    }
+    #sidebar{
+      /* background-color: aqua; */
       position: fixed;
       left: 0;
-      top: 0;
+      top: 55px;
+      width: 235px;
+      height: calc(100% - 55px);
     }
-    #nav_top{
-      background-color: olive;
-      width: 100%;
-      height: 5%;
-
-      position: fixed;
-      left: 10%;
-      top: 5%;
+    #main{
+      /* background-color: lightgrey; */
+      width: calc(100% - 235px);
+      height: calc(100% - 110px);
+      float: right;
+      position: relative;
+      top: 110px;
+      /* font-family: "Roboto","Arial",sans-serif; */
+      overflow-y: scroll;
     }
-    #nav_left{
-      background-color: burlywood;
-      width: 10%;
+    .container{
+      /* background-color: plum; */
+      width: 90%;
       height: 100%;
-      position: fixed;
-      top: 5%;
+      margin: auto;
+      margin-top: 25px;
+    }
+/* 各部分設定 */
+
+/* navbar01 */
+    /* 平行 */
+    #navbar01 .logo,
+    #navbar01 .menu-line,
+    #navbar01 .search,
+    #navbar01 .account{
+      line-height: 55px;
     }
     
-    #container{
+    /* 左側logo*/
+    #navbar01 .menu-line,
+    #navbar01 .logo,
+    #navbar01 .mark{
+      float: left;
+    }
+    #navbar01 .menu-line{
+      font-size: 20px;
+      padding: 0 20px;
+    }
+    /* 不!點擊效果下去鄰居也動了!!而且沒從中心點出發。此細節有機會再處理 */
+    /* #navbar01 .menu-line a{
+      display: block;
+      padding: 0 10px;
+    }
+    #navbar01 .menu-line a:active{
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      border: none;
       background-color: lightgrey;
-      height: 100%;
-      width: 100%;
-      
-      position: absolute;
-      left: 10%;
-      top: 10%;
-      z-index: -1;
-    }
-    .menu_button{
-      position: absolute;
-      top: 0;
-      left: 0;
-      border: 0;
-    }
-    .button_line_wrap{
-      display: inline-block;
-      width: 60px;
-      height:60px;
-    }
-    /* why 原本span失效 */
-    .botton_line{
-      display: inline-block;
-      background: black;
-      width: 50%;
-      height: 2px;
-
-      
-      /* text-align: center; */
-      line-height: 40px;
-    }
-    /* .fa-brands fa-youtube {
-      width: 100px;
-      height: 100px;
     } */
-  </style>
+    .logo img{
+      /* height: 55px; */
+      width: 95px;
+      padding: 5px 0;
+    }
+    #navbar01 .mark{
+      font-size: 10px;
+      margin-top: 10px;
+      padding: 0 2px;
+    }
+    /* 右側 */
+    #navbar01 .account,
+    #navbar01 .sign_in,
+    #navbar01 .setting,
+    #navbar01 .application{
+      float: right;
+      /* background-color: palegreen; */
+      margin: 0 15px;
+    }
+    #navbar01 .sign_in{
+      font-size: 1rem;
+      margin-right: 45px;
+      cursor: pointer;
+    }
+    #navbar01 .sign_in i{
+      color: blue;
+    }
+    /* 不知道藍框如何處理(外面再包一層?)，暫時用偽元素 */
+    #navbar01 .sign_in::before{
+      content: '';
+      position: absolute;
+      right: 0;
+      width: 70px;
+      height: 40px;
+      margin:6px 50px;
+      border: 1px solid blue;
+    }
+    /* 中間 */
+    .search{
+      /* background-color: orange; */
+      display: inline-block;
+      position: relative;
+      left: 35%;
+      transform: translate(-35%);
+      font-size: 0;
+    }
+    .search input,
+    .search-btn{
+      margin-bottom: 10px;
+      border: none;
+      border: 1px solid lightgray;
+      /* 細節優機會再加 */
+      /* filter: drop-shadow(); */
+      /* display: inline-block; */
+      vertical-align: middle;
+    }
+    .search input:focus,
+    .search button:focus{
+      outline: none;
+      appearance: none;
+      /* display: inline-block; */
+    }
+    .search input{
+      width: 520px;
+      height: 40px;
+      font-size: 1rem;
+    }
+    .search-btn{
+      width: 65px;
+      height: 40px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      /* 無法用? */
+      /* padding: 2px 15px; */
+    }
+    .micro{
+      display: inline-block;
+      font-size: 1rem;
+      margin-left: 10px;
+    }
+    .microphone{
+      font-size: 1rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      border: none;
+      background-color: rgb(249, 244, 244);
+      cursor: pointer;
+    }
+/* navbar02 */
+    #navbar02 ul li{
+      display:inline-block;
+    }
+    #navbar02 ul a{
+      line-height: 55px;
+      border: 1px solid rgb(163, 162, 162);
+      background-color: rgb(238, 234, 234);
+
+      border-radius: 20px;
+      padding: 6px 10px;
+      margin: 10px 8px;
+      font-size: 1rem;
+      /* 打開會無法完美置中，此處好點擊不影響 */
+      /* display: block; */
+    }
+    #navbar02 ul a:hover{
+      background-color: rgb(224, 217, 217);
+      transition: 0.3s;
+    }
+    #navbar02 li:nth-child(1) a{
+      background-color: black;
+      color: white;
+    }
+
+/* sidebar */
+/* main */
+    table{
+      width: 100%;
+      /* border: 1px solid black; */
+      border-collapse: collapse;
+      /* table似乎自己推不開 */
+      /* margin-top: 25px 0; */
+    }
+    td{
+      /* border: 1px solid black; */
+      width: 25%;
+      padding-bottom: 30px;
+    }
+    .card{
+      width: 100%;
+      /* height: 50%; */
+      /* background-color: aqua; */
+      padding: 0 8px;
+    }
+    .card img{
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .card-body img{
+      float:left;
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      margin-right: 5px;
+      
+    }
+    .card-body .author{
+      display: inline-block;
+      
+    }
+    .card-body .title{
+      font-size: 16px;
+      display: inline-block;
+      width: calc(100% - 45px);
+      overflow: hidden;
+      vertical-align: middle;
+    }
+    .card-footer{
+      margin-top: 5px;
+      font-size: 13px;
+      color: gray;
+      margin-left: 45px;
+      /* display: inline-block; */
+    }
+    .card-footer a{
+      color: gray;
+    }
+    .card-footer p{
+      margin: 4px 0;
+      overflow: hidden;
+    }
+    hr{
+      background-color: rgb(233, 229, 229);
+      width: 100%;
+      height: 5px;
+      /* hr有外框 */
+      border: none;
+      margin: 15px 0px;
+    }
+    .hot-video{
+      font-size: 18px;
+    }
+    </style>
 </head>
 <body>
-  <!-- 多包一層 -->
-  <div id="main">
-    <!-- 上導覽列 -->
-    <div id="header">
-      <div class="header_row">
-        <!-- 最左按鈕 -->
-        <!-- 左logo -->
-        <div class="logo">
-          <ul>
-            <li>
-              <button class="menu_button">
-                <span class="button_line_wrap">
-                  <span class="botton_line"></span>
-                  <span class="botton_line"></span>
-                  <span class="botton_line"></span>
-                </span>
-              </button>
-            </li>
-            <li>
-              <a href="#"><i class="fa-brands fa-youtube" style="color:red ;"></i>YOUTUBE</a>
-        <sup>TW</sup>
-            </li>
-          </ul>
-          
-        </div>
-        <!-- 中search -->
-        <div class="search">
-          <!-- <input type="search">
-          <button></button> -->
-        </div>
-        <!-- 右setting -->
-        <div class="setting"></div>
-      </div>
-    </div>
-
-    <!-- 上導覽列2 -->
-    <div id="nav_top"></div>
-
-    <!-- 左導覽列 -->
-    <div id="nav_left"></div>
+  <!-- 導覽列01 -->
+  <div id="navbar01">
+    <!-- 左 -->
+    <div class="menu-line"><a href="#"><i class="fa-solid fa-bars"></i></a></div>
+    <div class="logo"><a href="#"><img src="./YT images/yt logo.jpg" alt="yt logo"></a></div>
+    <div class="mark">TW</div>
     
-    <!-- 內容 -->
-    <div id="container"></div>
+    
+    <!-- 中 -->
+    <div class="search">
+        <input type="text" placeholder="&nbsp;搜尋">
+        <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div class="micro"><button class="microphone"><i class="fa-solid fa-microphone"></i></button></div>
+    </div>
+    <!-- 右 -->
+    <div class="account">
+      <div class="sign_in"><a href="#"><i class="fa-solid fa-circle-user">&nbsp;登入</i></a></div>
+      <div class="setting"><a href="#"><i class="fa-solid fa-ellipsis-vertical"></i></a></div>
+      <div class="application"><a href="#"><i class="fa-solid fa-table-cells"></i></a></div>
+    </div>
+    
+  </div>
+  <!-- 導覽列02 -->
+  <div id="navbar02">
+    <ul>
+      <li><a href="#">全部</a></li>
+      <li><a href="#">直播中</a></li>
+      <li><a href="#">音樂</a></li>
+      <li><a href="#">遊戲</a></li>
+      <li><a href="#">動畫</a></li>
+      <li><a href="#">動作冒險遊戲</a></li>
+      <li><a href="#">烹飪</a></li>
+      <li><a href="#">寵物</a></li>
+      <li><a href="#">最新上傳</a></li>
+    </ul>
+  </div>
+<!-- 左側選單 -->
+  <div id="sidebar"></div>
+<!-- 主要內容 -->
+  <div id="main">
+    <div class="container">
+      <table>
+        <tr>
+          <td>
+            <a href="https://www.youtube.com/watch?v=GZnrFMKv2wQ">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/01.webp" alt="KAZBOM">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/c/KAZBOMYI"><img src="./YT images/01-1.jpg" alt="channel"></a>
+                  <div class="title">【樂團介紹】Official髭男dism｜銀行員所堅持的樂團夢</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/c/KAZBOMYI">KAZBOM</a>
+                  <p>觀看次數：102萬次．6天前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=NDsbHhdXT2A">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/02.webp" alt="木曜4超玩">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/c/%E6%9C%A8%E6%9B%9C4%E8%B6%85%E7%8E%A9"><img src="./YT images/02-1.jpg" alt="channel"></a>
+                  
+                  <div class="title">木曜學園～回到中學時代，你還會寫作文嗎？艾爾登法環當題目能寫嗎？feat 依渟、李薇薇老師 上</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/c/%E6%9C%A8%E6%9B%9C4%E8%B6%85%E7%8E%A9">木曜4超玩</a>
+                  <p>觀看次數：43萬次．1天前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=qvIlt68I6vI">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/03.webp" alt="孫沁岳">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/channel/UCD114v8IMP5HWSUXrIJlJuQ"><img src="./YT images/03-1.jpg" alt="channel"></a>
+                  <div class="title">畫功超爛的漫畫家創作出百萬神作 ?!  一個平凡上班族畫出暢銷漫畫的感人故事。【漫遊快譯通】</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/channel/UCD114v8IMP5HWSUXrIJlJuQ">孫沁岳</a>
+                  <p>觀看次數：79萬次．1年前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=iMYj4IqPGq4">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/04.webp" alt="THE FIRST TAKE">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/channel/UC9zY_E8mcAo_Oq772LEZq8Q"><img src="./YT images/04-1.jpg" alt="channel"></a>
+                  <div class="title">幾田りら - スパークル / THE FIRST TAKE</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/channel/UC9zY_E8mcAo_Oq772LEZq8Q">THE FIRST TAKE</a>
+                  <p>觀看次數：13萬次．1小時前</p>
+                </div>
+              </div>
+            </a>
 
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a href="https://www.youtube.com/watch?v=7TpTxRvpghk">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/05.webp" alt="Rey的西洋棋">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/c/KAZBOMYI"><img src="./YT images/05-1.jpg" alt="channel"></a>
+                  <div class="title">【Rey的西洋棋】開局不要輕易露出弱格 殘局王的靈活性很重要【觀眾對局覆盤系列】| 国际象棋 | Chess</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/channel/UCGhl-a4r83RRYeqGmrcnYGg">Rey的西洋棋</a>
+                  <p>觀看次數：1434次．1天前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=zqZO81CjMxU">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/06.webp" alt="緯來日本台">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/c/KAZBOMYI"><img src="./YT images/06-1.jpg" alt="channel"></a>
+                  <div class="title">【日本好多新鮮事】顛覆你的用錢常識 大量囤貨根本省不了錢</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/user/VideolandJapan">緯來日本台</a>
+                  <p>觀看次數：28萬次．6個月前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=ony539T074w">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/07.webp" alt="King Gnu official YouTube channel">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/c/KAZBOMYI"><img src="./YT images/07-1.jpg" alt="channel"></a>
+                  <div class="title">King Gnu - 白日</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/c/kinggnuSMEJ">King Gnu official YouTube channel</a>
+                  <p>觀看次數：4億次．3年前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=sCv7GYng3M0">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/08.webp" alt="台灣達人秀">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/c/KAZBOMYI"><img src="./YT images/08-1.jpg" alt="channel"></a>
+                  <div class="title">【台灣Minecraft玩家國外爆紅！ 蓋出最高金字塔250小時值得】｜@阿睿</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/c/TaiwanTalentShow">台灣達人秀</a>
+                  <p>觀看次數：37萬次．2天前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+        </tr>
+      </table>
+      <br>
+      <hr>
+      <br>
+      <table>
+        <tr>
+          <td>
+            <div class="hot-video">發燒影片</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="https://www.youtube.com/watch?v=GZnrFMKv2wQ">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/01.webp" alt="KAZBOM">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/c/KAZBOMYI"><img src="./YT images/01-1.jpg" alt="channel"></a>
+                  <div class="title">【樂團介紹】Official髭男dism｜銀行員所堅持的樂團夢</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/c/KAZBOMYI">KAZBOM</a>
+                  <p>觀看次數：102萬次．6天前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=NDsbHhdXT2A">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/02.webp" alt="木曜4超玩">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/c/%E6%9C%A8%E6%9B%9C4%E8%B6%85%E7%8E%A9"><img src="./YT images/02-1.jpg" alt="channel"></a>
+                  
+                  <div class="title">木曜學園～回到中學時代，你還會寫作文嗎？艾爾登法環當題目能寫嗎？feat 依渟、李薇薇老師 上</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/c/%E6%9C%A8%E6%9B%9C4%E8%B6%85%E7%8E%A9">木曜4超玩</a>
+                  <p>觀看次數：43萬次．1天前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=qvIlt68I6vI">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/03.webp" alt="孫沁岳">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/channel/UCD114v8IMP5HWSUXrIJlJuQ"><img src="./YT images/03-1.jpg" alt="channel"></a>
+                  <div class="title">畫功超爛的漫畫家創作出百萬神作 ?!  一個平凡上班族畫出暢銷漫畫的感人故事。【漫遊快譯通】</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/channel/UCD114v8IMP5HWSUXrIJlJuQ">孫沁岳</a>
+                  <p>觀看次數：79萬次．1年前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=iMYj4IqPGq4">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/04.webp" alt="THE FIRST TAKE">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/channel/UC9zY_E8mcAo_Oq772LEZq8Q"><img src="./YT images/04-1.jpg" alt="channel"></a>
+                  <div class="title">幾田りら - スパークル / THE FIRST TAKE</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/channel/UC9zY_E8mcAo_Oq772LEZq8Q">THE FIRST TAKE</a>
+                  <p>觀看次數：13萬次．1小時前</p>
+                </div>
+              </div>
+            </a>
+
+          </td>
+        </tr>
+      </table>
+      <br>
+      <hr>
+      <br>
+
+      <table>
+        <tr>
+          <td>
+            <a href="https://www.youtube.com/watch?v=GZnrFMKv2wQ">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/01.webp" alt="KAZBOM">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/c/KAZBOMYI"><img src="./YT images/01-1.jpg" alt="channel"></a>
+                  <div class="title">【樂團介紹】Official髭男dism｜銀行員所堅持的樂團夢</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/c/KAZBOMYI">KAZBOM</a>
+                  <p>觀看次數：102萬次．6天前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=NDsbHhdXT2A">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/02.webp" alt="木曜4超玩">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/c/%E6%9C%A8%E6%9B%9C4%E8%B6%85%E7%8E%A9"><img src="./YT images/02-1.jpg" alt="channel"></a>
+                  
+                  <div class="title">木曜學園～回到中學時代，你還會寫作文嗎？艾爾登法環當題目能寫嗎？feat 依渟、李薇薇老師 上</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/c/%E6%9C%A8%E6%9B%9C4%E8%B6%85%E7%8E%A9">木曜4超玩</a>
+                  <p>觀看次數：43萬次．1天前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=qvIlt68I6vI">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/03.webp" alt="孫沁岳">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/channel/UCD114v8IMP5HWSUXrIJlJuQ"><img src="./YT images/03-1.jpg" alt="channel"></a>
+                  <div class="title">畫功超爛的漫畫家創作出百萬神作 ?!  一個平凡上班族畫出暢銷漫畫的感人故事。【漫遊快譯通】</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/channel/UCD114v8IMP5HWSUXrIJlJuQ">孫沁岳</a>
+                  <p>觀看次數：79萬次．1年前</p>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td>
+            <a href="https://www.youtube.com/watch?v=iMYj4IqPGq4">
+              <div class="card">
+                <div class="card-header">
+                  <img src="./YT images/04.webp" alt="THE FIRST TAKE">
+                </div>
+                <div class="card-body">
+                  <a href="https://www.youtube.com/channel/UC9zY_E8mcAo_Oq772LEZq8Q"><img src="./YT images/04-1.jpg" alt="channel"></a>
+                  <div class="title">幾田りら - スパークル / THE FIRST TAKE</div>
+                </div>
+                <div class="card-footer">
+                  <a href="https://www.youtube.com/channel/UC9zY_E8mcAo_Oq772LEZq8Q">THE FIRST TAKE</a>
+                  <p>觀看次數：13萬次．1小時前</p>
+                </div>
+              </div>
+            </a>
+
+          </td>
+        </tr>
+      </table>
+      <br>
+    </div>
   </div>
 </body>
 </html>
