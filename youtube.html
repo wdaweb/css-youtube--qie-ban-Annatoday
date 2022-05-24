@@ -134,6 +134,7 @@
       padding: 0 2px;
     }
     /* 右側 */
+    
     #navbar01 .account,
     #navbar01 .sign_in,
     #navbar01 .setting,
@@ -141,17 +142,23 @@
       float: right;
       /* background-color: palegreen; */
       margin: 0 15px;
+
     }
     #navbar01 .sign_in{
       font-size: 1rem;
       margin-right: 45px;
       cursor: pointer;
+      /* 無法置中，就算有設定高度也黏在最上面，因為浮動。最後用margin-top推開:5+45+5=55 */
+      height: 45px;
+      /* line-height: 45px; */
+      margin-top: 5px;
+      border: 1px solid blue;
     }
     #navbar01 .sign_in i{
       color: blue;
     }
     /* 不知道藍框如何處理(外面再包一層?)，暫時用偽元素 */
-    #navbar01 .sign_in::before{
+    /* #navbar01 .sign_in::before{
       content: '';
       position: absolute;
       right: 0;
@@ -159,7 +166,7 @@
       height: 40px;
       margin:6px 50px;
       border: 1px solid blue;
-    }
+    } */
     /* 中間 */
     .search{
       /* background-color: orange; */
