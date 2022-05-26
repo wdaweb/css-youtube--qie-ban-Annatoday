@@ -17,10 +17,14 @@
   <!-- <link rel="stylesheet" href="./webfonts/"> -->
 
   <style>
+    /* 未完成小效果:浮起來放大 */
     /* 重新排版 
         1.高度用px較好，%不易計算:行高對齊時，%數值會過大
-        2.乖乖定位，只用%推開，縮放位置會大跑版(navbar1)
-        3.盡量保持各區塊寬100%? */
+        導覽列再修正
+        2.乖乖定位，只用%推開，縮放位置會大跑版(navbar1)。
+        3.導覽列01左右浮動+中間設左右margin:0 auto可真正置中(要有寬度)，其實是佔一整行。若search轉inline-block，會排在logo後方(確切原因?)。
+        4.float、字型再研究
+        5.div用浮動緊黏父元素上緣推不開，整塊用行高沒用，要用margin推 */
     
     *{
       margin: 0;
@@ -33,7 +37,7 @@
     html,
     body{
       height: 100%;
-      overflow: hidden;
+      /* overflow: hidden; */
     }
     a{
       text-decoration: none;
@@ -41,9 +45,10 @@
       /* 要用再各自開 */
       /* display: block; */
     }
+
     /* 基本版面 */
     #navbar01{
-      /* background-color: pink; */
+      /* background-color: greenyellow; */
       border-bottom: 1px solid lightgray;
       width: 100%;
       height: 55px;
@@ -51,31 +56,32 @@
       top: 0;
       left: 0;
       /* overflow: hidden; */
+      /* 保有對齊效果，而後方的元素也不會被遮蓋。 */
+      /* clear: both; */
     }
     #navbar02{
       /* background-color: lemonchiffon; */
       border-bottom: 1px solid lightgray;
       
       position: fixed;
-      left: 235px;
+      left: 240px;
       top: 55px;
       width: calc(100% - 235px);
       height: 55px;
       text-align: center;
       font-size: 0;
-      
     }
     #sidebar{
       /* background-color: aqua; */
       position: fixed;
       left: 0;
       top: 55px;
-      width: 235px;
+      width: 240px;
       height: calc(100% - 55px);
     }
     #main{
       /* background-color: lightgrey; */
-      width: calc(100% - 235px);
+      width: calc(100% - 240px);
       height: calc(100% - 110px);
       float: right;
       position: relative;
@@ -93,15 +99,21 @@
 /* 各部分設定 */
 
 /* navbar01 */
-    /* 平行 */
-    #navbar01 .logo,
+    /* 平行、置中 */
     #navbar01 .menu-line,
+    #navbar01 .logo,
     #navbar01 .search,
     #navbar01 .account{
       line-height: 55px;
     }
     
-    /* 左側logo*/
+    /* 左側*/
+    #navbar01 .navbar01-left{
+      width: 240px;
+      height: 55px;
+      /* background-color: pink; */
+    }
+    #navbar01 .navbar01-left,
     #navbar01 .menu-line,
     #navbar01 .logo,
     #navbar01 .mark{
@@ -124,84 +136,93 @@
       background-color: lightgrey;
     } */
     .logo img{
-      /* height: 55px; */
+      /* a其實會佔位? */
+      /* height: 55px; 圖比例會壞掉*/
       width: 95px;
-      padding: 5px 0;
+      /* 浮動緊黏上方 */
+      margin: 5px 0px 0px 0px;
     }
     #navbar01 .mark{
       font-size: 10px;
+      padding:0 2px;
       margin-top: 10px;
-      padding: 0 2px;
+      
     }
     /* 右側 */
-    
+    #navbar01 .account{
+      /* width: 235px; */
+      height: 55px;
+      /* background-color: #000; */
+    }
     #navbar01 .account,
     #navbar01 .sign_in,
     #navbar01 .setting,
     #navbar01 .application{
-      float: right;
       /* background-color: palegreen; */
+      float: right;
       margin: 0 15px;
-
     }
     #navbar01 .sign_in{
       font-size: 1rem;
-      margin-right: 45px;
-      cursor: pointer;
-      /* 無法置中，就算有設定高度也黏在最上面，因為浮動。最後用margin-top推開:5+45+5=55 */
-      height: 45px;
-      /* line-height: 45px; */
-      margin-top: 5px;
+      margin-right: 30px;
+      padding: 0 10px;
       border: 1px solid blue;
+      border-radius: 2px;
+      cursor: pointer;
+      /* 無法整塊往下置中，就算有設高度也黏在上緣，因為浮動。
+        最後margin-top推開:7+40+7=54(1cm是navbar01的border-bottom) */
+      height: 40px;
+      line-height: 40px;
+      /* 55-40-1(border-bottom)=14/2=7 */
+      margin-top: 7px;
     }
     #navbar01 .sign_in i{
       color: blue;
     }
-    /* 不知道藍框如何處理(外面再包一層?)，暫時用偽元素 */
-    /* #navbar01 .sign_in::before{
-      content: '';
-      position: absolute;
-      right: 0;
-      width: 70px;
-      height: 40px;
-      margin:6px 50px;
-      border: 1px solid blue;
-    } */
-    /* 中間 */
+    /* 中間*/
     .search{
       /* background-color: orange; */
-      display: inline-block;
-      position: relative;
-      left: 35%;
-      transform: translate(-35%);
+      height: 55px;
+      /* 真．置中 */
+      width: 650px;
+      margin: 0 auto;
+
+      /* 不準確的置中 */
+      /* display: inline-block; */
+      /* position: relative; */
+      /* left: 35%;
+      transform: translate(-35%); */
       font-size: 0;
     }
     .search input,
     .search-btn{
-      margin-bottom: 10px;
+      margin-bottom: 11px;
       border: none;
       border: 1px solid lightgray;
       /* 細節優機會再加 */
       /* filter: drop-shadow(); */
-      /* display: inline-block; */
-      vertical-align: middle;
+      /* display: inline-block;=>input、a、button是行內元素*/
+      vertical-align:middle;
     }
     .search input:focus,
     .search button:focus{
       outline: none;
       appearance: none;
-      /* display: inline-block; */
     }
     .search input{
       width: 520px;
       height: 40px;
       font-size: 1rem;
+      border-radius: 2px 0 0 2px;
+      border-right: none;
+      
     }
     .search-btn{
       width: 65px;
       height: 40px;
       font-size: 1.1rem;
       cursor: pointer;
+      border-radius: 0 2px 2px 0;
       /* 無法用? */
       /* padding: 2px 15px; */
     }
@@ -243,8 +264,6 @@
       background-color: black;
       color: white;
     }
-
-/* sidebar */
 /* main */
     table{
       width: 100%;
@@ -312,22 +331,23 @@
     .hot-video{
       font-size: 18px;
     }
+    /* sidebar */
+    .menu{
+      background-color: pink;
+      padding: 0 24px;
+      border-bottom: 1px solid lightgray;
+    }
     </style>
 </head>
 <body>
-  <!-- 導覽列01 -->
+<!-- 導覽列01 -->
   <div id="navbar01">
     <!-- 左 -->
-    <div class="menu-line"><a href="#"><i class="fa-solid fa-bars"></i></a></div>
-    <div class="logo"><a href="#"><img src="./YT images/yt logo.jpg" alt="yt logo"></a></div>
-    <div class="mark">TW</div>
-    
-    
-    <!-- 中 -->
-    <div class="search">
-        <input type="text" placeholder="&nbsp;搜尋">
-        <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-        <div class="micro"><button class="microphone"><i class="fa-solid fa-microphone"></i></button></div>
+    <!-- 以防萬一包起來 -->
+    <div class="navbar01-left">
+      <div class="menu-line"><a href="#"><i class="fa-solid fa-bars"></i></a></div>
+      <div class="logo"><a href="#"><img src="./YT images/yt logo.jpg" alt="yt logo"></a></div>
+      <div class="mark">TW</div>
     </div>
     <!-- 右 -->
     <div class="account">
@@ -335,24 +355,107 @@
       <div class="setting"><a href="#"><i class="fa-solid fa-ellipsis-vertical"></i></a></div>
       <div class="application"><a href="#"><i class="fa-solid fa-table-cells"></i></a></div>
     </div>
+    <!-- 中 (排左右之後，佔文件流?)-->
+    <div class="search">
+      <input type="text" placeholder="&nbsp;搜尋">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <div class="micro"><button class="microphone"><i class="fa-solid fa-microphone"></i><button></div>
+      </div>
     
   </div>
-  <!-- 導覽列02 -->
+<!-- 導覽列02 -->
   <div id="navbar02">
     <ul>
       <li><a href="#">全部</a></li>
-      <li><a href="#">直播中</a></li>
       <li><a href="#">音樂</a></li>
+      <li><a href="#">直播中</a></li>
       <li><a href="#">遊戲</a></li>
       <li><a href="#">動畫</a></li>
       <li><a href="#">動作冒險遊戲</a></li>
       <li><a href="#">烹飪</a></li>
       <li><a href="#">寵物</a></li>
+      <li><a href="#">手工藝</a></li>
       <li><a href="#">最新上傳</a></li>
     </ul>
   </div>
 <!-- 左側選單 -->
-  <div id="sidebar"></div>
+  <div id="sidebar">
+    <div class="menu">
+      <ul>
+        <li><a href="#"><i class="fa-solid fa-house"></i>首頁</a></li>
+        <li><a href="#"><i class="fa-solid fa-compass"></i>探索</a></li>
+        <li><a href="#"><i class="fa-solid fa-ticket"></i>Short</a></li>
+        <li><a href="#"><i class="fa-solid fa-display"></i>訂閱內容</a></li>
+      </ul>
+    </div>
+    <div class="menu">
+      <ul>
+        <li><i class="fa-solid fa-notes-medical"></i>媒體庫</a></li>
+        <li><a href="#"><i class="fa-solid fa-clock-rotate-left"></i>觀看紀錄</a></li>
+      </ul>
+    </div>
+    <div class="menu">
+      <span>登入帳戶即可對影片表示喜歡、發布留言及訂閱頻道。</span>
+      <img src="" alt="">
+    </div>
+    <div class="menu">
+      <ul>
+        <span>YOUTUBE精選</span>
+        <li><a href="#"><i class="fa-solid fa-music"></i>音樂</a></li>
+        <li><a href="#"><i class="fa-solid fa-trophy"></i>體育</a></li>
+        <li><a href="#"><i class="fa-solid fa-gamepad"></i>遊戲</a></li>
+        <li><a href="#"><i class="fa-solid fa-film"></i>電影</a></li>
+        <li><a href="#"><i class="fa-solid fa-calendar-plus"></i>新聞</a></li>
+        <li><a href="#"><i class="fa-solid fa-headset"></i></i>直播</a></li>
+        <li><a href="#"><i class="fa-solid fa-mask"></i></i>360度影片</a></li>
+      </ul>
+    </div>
+    <div class="menu">
+      <ul>
+        <li>瀏覽頻道</li>
+      </ul>
+    </div>
+    <div class="menu"><ul>
+      <span>更多 YouTube功能</span>
+      <li>YouTube Premium</li>
+      <li>直播</li>
+    </ul></div>
+    <div class="menu">
+      <ul>
+        <li>設定</li>
+        <li>檢舉紀錄</li>
+        <li>說明</li>
+        <li>提供意見</li>
+      </ul>
+    </div>
+    <div class="menu">
+      <div class="footer">
+        <ul>
+          <li>簡介</li>
+          <li>媒體</li>
+          <li>版權</li>
+          <li>與我們聯絡</li>
+          <li>創作者</li>
+          <li>廣告</li>
+          <li>開發人員</li>
+        </ul>
+        <br>
+        <ul>
+          <li>條款</li>
+          <li>隱私權</li>
+          <li>政策與安全性</li>
+          <li>YouTube運作方式</li>
+          <li>測試新功能</li>
+        </ul>
+        <br>
+        <ul>
+          <li>&copy;2022 Google LLC</li>
+        </ul>
+        
+      </div>
+    </div>
+    
+  </div>
 <!-- 主要內容 -->
   <div id="main">
     <div class="container">
@@ -590,69 +693,68 @@
       <table>
         <tr>
           <td>
-            <a href="https://www.youtube.com/watch?v=GZnrFMKv2wQ">
+            <a href="https://www.youtube.com/watch?v=qo3H-VgXmHE">
               <div class="card">
                 <div class="card-header">
-                  <img src="./YT images/01.webp" alt="KAZBOM">
+                  <img src="./YT images/13.webp" alt="阿翰po影片">
                 </div>
                 <div class="card-body">
-                  <a href="https://www.youtube.com/c/KAZBOMYI"><img src="./YT images/01-1.jpg" alt="channel"></a>
-                  <div class="title">【樂團介紹】Official髭男dism｜銀行員所堅持的樂團夢</div>
+                  <a href="https://www.youtube.com/channel/UCEBaVKCwLP3UOdSq3LNNqmw"><img src="./YT images/13-1.jpg" alt="channel"></a>
+                  <div class="title">阿翰po影片 │算命阿姨 九天玄女之天女散花</div>
                 </div>
                 <div class="card-footer">
-                  <a href="https://www.youtube.com/c/KAZBOMYI">KAZBOM</a>
-                  <p>觀看次數：102萬次．6天前</p>
+                  <a href="https://www.youtube.com/channel/UCEBaVKCwLP3UOdSq3LNNqmw">阿翰po影片</a>
+                  <p>觀看次數：1027萬次．1個月前</p>
                 </div>
               </div>
             </a>
           </td>
           <td>
-            <a href="https://www.youtube.com/watch?v=NDsbHhdXT2A">
+            <a href="https://www.youtube.com/watch?v=2FEKMSKooz0">
               <div class="card">
                 <div class="card-header">
-                  <img src="./YT images/02.webp" alt="木曜4超玩">
+                  <img src="./YT images/14.webp" alt="環球娛樂">
                 </div>
                 <div class="card-body">
-                  <a href="https://www.youtube.com/c/%E6%9C%A8%E6%9B%9C4%E8%B6%85%E7%8E%A9"><img src="./YT images/02-1.jpg" alt="channel"></a>
-                  
-                  <div class="title">木曜學園～回到中學時代，你還會寫作文嗎？艾爾登法環當題目能寫嗎？feat 依渟、李薇薇老師 上</div>
+                  <a href="https://www.youtube.com/channel/UC3mJMDAup--1U1TjUxgPJYA"><img src="./YT images/14-1.jpg" alt="channel"></a>
+                  <div class="title">王心凌男孩名場面，喚醒老粉跳起來停不下啥姿勢也有，大肚腩都跳平了</div>
                 </div>
                 <div class="card-footer">
-                  <a href="https://www.youtube.com/c/%E6%9C%A8%E6%9B%9C4%E8%B6%85%E7%8E%A9">木曜4超玩</a>
-                  <p>觀看次數：43萬次．1天前</p>
+                  <a href="https://www.youtube.com/channel/UC3mJMDAup--1U1TjUxgPJYA">環球娛樂</a>
+                  <p>觀看次數：7.4萬次．1天前</p>
                 </div>
               </div>
             </a>
           </td>
           <td>
-            <a href="https://www.youtube.com/watch?v=qvIlt68I6vI">
+            <a href="https://www.youtube.com/watch?v=rFcDB6-5p-g">
               <div class="card">
                 <div class="card-header">
-                  <img src="./YT images/03.webp" alt="孫沁岳">
+                  <img src="./YT images/15.webp" alt="LINE TV 共享追劇生活">
                 </div>
                 <div class="card-body">
-                  <a href="https://www.youtube.com/channel/UCD114v8IMP5HWSUXrIJlJuQ"><img src="./YT images/03-1.jpg" alt="channel"></a>
-                  <div class="title">畫功超爛的漫畫家創作出百萬神作 ?!  一個平凡上班族畫出暢銷漫畫的感人故事。【漫遊快譯通】</div>
+                  <a href="https://www.youtube.com/c/LINETVtw"><img src="./YT images/15-1.jpg" alt="channel"></a>
+                  <div class="title">【極島森林】EP1精華：釣魚換現金！陳柏霖臭手釣樹枝，劉冠廷天才小釣手卻被魚嚇到！ | LINE TV 共享追劇生活</div>
                 </div>
                 <div class="card-footer">
-                  <a href="https://www.youtube.com/channel/UCD114v8IMP5HWSUXrIJlJuQ">孫沁岳</a>
+                  <a href="https://www.youtube.com/c/LINETVtw">LINE TV 共享追劇生活</a>
                   <p>觀看次數：79萬次．1年前</p>
                 </div>
               </div>
             </a>
           </td>
           <td>
-            <a href="https://www.youtube.com/watch?v=iMYj4IqPGq4">
+            <a href="https://www.youtube.com/watch?v=99L8MCPXTUg">
               <div class="card">
                 <div class="card-header">
-                  <img src="./YT images/04.webp" alt="THE FIRST TAKE">
+                  <img src="./YT images/16.webp" alt="cj6elcj86">
                 </div>
                 <div class="card-body">
-                  <a href="https://www.youtube.com/channel/UC9zY_E8mcAo_Oq772LEZq8Q"><img src="./YT images/04-1.jpg" alt="channel"></a>
-                  <div class="title">幾田りら - スパークル / THE FIRST TAKE</div>
+                  <a href="https://www.youtube.com/c/cj6elcj86"><img src="./YT images/16-1.jpg" alt="channel"></a>
+                  <div class="title">永遠不回頭 [七匹狼] 主題曲</div>
                 </div>
                 <div class="card-footer">
-                  <a href="https://www.youtube.com/channel/UC9zY_E8mcAo_Oq772LEZq8Q">THE FIRST TAKE</a>
+                  <a href="https://www.youtube.com/c/cj6elcj86">cj6elcj86</a>
                   <p>觀看次數：13萬次．1小時前</p>
                 </div>
               </div>
