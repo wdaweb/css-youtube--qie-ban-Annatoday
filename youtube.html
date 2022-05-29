@@ -17,381 +17,18 @@
   <link rel="stylesheet" href="./webfonts/">
 
   <style>
-    /* 未完成小效果: 滾輪樣式、自型、td浮起來放大 */
+    /* 待做小效果: 字型&顏色、td浮起來放大(hover)) */
+    /* 待解決:無法整個card都點到連結*/
     /* 重新排版 
+        * main的捲軸需要延伸到navbar(以後切版布局要注意)
         1.高度用px較好，%不易計算:行高對齊時，%數值會過大
         導覽列再修正
         2.乖乖定位，只用%推開，縮放位置會大跑版(navbar1)。
         3.導覽列01左右浮動+中間設左右margin:0 auto可真正置中(要有寬度)，其實是佔一整行。若search轉inline-block，會排在logo後方(確切原因?)。
         4.float、字型再研究
         5.div用浮動緊黏父元素上緣推不開，整塊用行高沒用，要用margin推
-        6.br無法更改本身高度? */
-        
-    
-    *{
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      box-sizing: border-box;
-      /* debug用 */
-      /* outline: 1px solid purple; */
-    }
-    html,
-    body{
-      height: 100%;
-      /* overflow: hidden; */
-    }
-    a{
-      text-decoration: none;
-      color: black;
-      /* 要用再各自開 */
-      /* display: block; */
-    }
-
-    /* 基本版面 */
-    #navbar01{
-      /* background-color: greenyellow; */
-      border-bottom: 1px solid lightgray;
-      width: 100%;
-      height: 55px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      /* overflow: hidden; */
-      /* 保有對齊效果，而後方的元素也不會被遮蓋。 */
-      /* clear: both; */
-    }
-    #navbar02{
-      /* background-color: lemonchiffon; */
-      border-bottom: 1px solid lightgray;
-      
-      position: fixed;
-      left: 240px;
-      top: 55px;
-      width: calc(100% - 235px);
-      height: 55px;
-      text-align: center;
-      font-size: 0;
-    }
-    #sidebar{
-      /* background-color: aqua; */
-      position: fixed;
-      left: 0;
-      top: 55px;
-      width: 240px;
-      height: calc(100% - 55px);
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
-    #main{
-      /* background-color: lightgrey; */
-      width: calc(100% - 240px);
-      height: calc(100% - 110px);
-      float: right;
-      position: relative;
-      top: 110px;
-      /* font-family: "Roboto","Arial",sans-serif; */
-      overflow-y: scroll;
-    }
-    .container{
-      /* background-color: plum; */
-      width: 90%;
-      height: 100%;
-      margin: auto;
-      margin-top: 25px;
-    }
-/* 各部分設定 */
-
-/* navbar01 */
-    /* 平行、置中 */
-    #navbar01 .menu-line,
-    #navbar01 .logo,
-    #navbar01 .search,
-    #navbar01 .account{
-      line-height: 55px;
-    }
-    
-    /* 左側*/
-    #navbar01 .navbar01-left{
-      width: 240px;
-      height: 55px;
-      /* background-color: pink; */
-    }
-    #navbar01 .navbar01-left,
-    #navbar01 .menu-line,
-    #navbar01 .logo,
-    #navbar01 .mark{
-      float: left;
-    }
-    #navbar01 .menu-line{
-      font-size: 20px;
-      padding: 0 20px;
-    }
-    /* 不!點擊效果下去鄰居也動了!!而且沒從中心點出發。此細節有機會再處理 */
-    /* #navbar01 .menu-line a{
-      display: block;
-      padding: 0 10px;
-    }
-    #navbar01 .menu-line a:active{
-      width: 50px;
-      height: 50px;
-      border-radius: 50px;
-      border: none;
-      background-color: lightgrey;
-    } */
-    .logo img{
-      /* a其實會佔位? */
-      /* height: 55px; 圖比例會壞掉*/
-      width: 95px;
-      /* 浮動緊黏上方 */
-      margin: 5px 0px 0px 0px;
-    }
-    #navbar01 .mark{
-      font-size: 10px;
-      padding:0 2px;
-      margin-top: 10px;
-      
-    }
-    /* 右側 */
-    #navbar01 .account{
-      /* width: 235px; */
-      height: 55px;
-      /* background-color: #000; */
-    }
-    #navbar01 .account,
-    #navbar01 .sign_in,
-    #navbar01 .setting,
-    #navbar01 .application{
-      /* background-color: palegreen; */
-      float: right;
-      margin: 0 15px;
-    }
-    #navbar01 .sign_in{
-      font-size: 1rem;
-      margin-right: 30px;
-      padding: 0 10px;
-      border: 1px solid blue;
-      border-radius: 2px;
-      cursor: pointer;
-      /* 無法整塊往下置中，就算有設高度也黏在上緣，因為浮動。
-        最後margin-top推開:7+40+7=54(1cm是navbar01的border-bottom) */
-      height: 40px;
-      line-height: 40px;
-      /* 55-40-1(border-bottom)=14/2=7 */
-      margin-top: 7px;
-    }
-    #navbar01 .sign_in i{
-      color: blue;
-    }
-    /* 中間*/
-    .search{
-      /* background-color: orange; */
-      height: 55px;
-      /* 真．置中 */
-      width: 650px;
-      margin: 0 auto;
-
-      /* 不準確的置中 */
-      /* display: inline-block; */
-      /* position: relative; */
-      /* left: 35%;
-      transform: translate(-35%); */
-      font-size: 0;
-    }
-    .search input,
-    .search-btn{
-      margin-bottom: 11px;
-      border: none;
-      border: 1px solid lightgray;
-      /* 細節優機會再加 */
-      /* filter: drop-shadow(); */
-      /* display: inline-block;=>input、a、button是行內元素*/
-      vertical-align:middle;
-    }
-    .search input:focus,
-    .search button:focus{
-      outline: none;
-      appearance: none;
-    }
-    .search input{
-      width: 520px;
-      height: 40px;
-      font-size: 1rem;
-      border-radius: 2px 0 0 2px;
-      border-right: none;
-      
-    }
-    .search-btn{
-      width: 65px;
-      height: 40px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      border-radius: 0 2px 2px 0;
-      /* 無法用? */
-      /* padding: 2px 15px; */
-    }
-    .micro{
-      display: inline-block;
-      font-size: 1rem;
-      margin-left: 10px;
-    }
-    .microphone{
-      font-size: 1rem;
-      width: 40px;
-      height: 40px;
-      border-radius: 40px;
-      border: none;
-      background-color: rgb(249, 244, 244);
-      cursor: pointer;
-    }
-/* navbar02 */
-    #navbar02 ul li{
-      display:inline-block;
-    }
-    #navbar02 ul a{
-      line-height: 55px;
-      border: 1px solid rgb(163, 162, 162);
-      background-color: rgb(238, 234, 234);
-
-      border-radius: 20px;
-      padding: 6px 10px;
-      margin: 10px 8px;
-      font-size: 1rem;
-      /* 打開會無法完美置中，此處好點擊不影響 */
-      /* display: block; */
-    }
-    #navbar02 ul a:hover{
-      background-color: rgb(224, 217, 217);
-      transition: 0.3s;
-    }
-    #navbar02 li:nth-child(1) a{
-      background-color: black;
-      color: white;
-    }
-/* main */
-    table{
-      width: 100%;
-      /* border: 1px solid black; */
-      border-collapse: collapse;
-      /* table似乎自己推不開 */
-      /* margin-top: 25px 0; */
-    }
-    td{
-      /* border: 1px solid black; */
-      width: 25%;
-      padding-bottom: 30px;
-    }
-    .card{
-      width: 100%;
-      /* height: 50%; */
-      /* background-color: aqua; */
-      padding: 0 8px;
-    }
-    .card img{
-      width: 100%;
-      margin-bottom: 10px;
-    }
-    .card-body img{
-      float:left;
-      width: 40px;
-      height: 40px;
-      border-radius: 40px;
-      margin-right: 5px;
-      
-    }
-    .card-body .author{
-      display: inline-block;
-      
-    }
-    .card-body .title{
-      font-size: 16px;
-      display: inline-block;
-      width: calc(100% - 45px);
-      overflow: hidden;
-      vertical-align: middle;
-    }
-    .card-footer{
-      margin-top: 5px;
-      font-size: 13px;
-      color: gray;
-      margin-left: 45px;
-      /* display: inline-block; */
-    }
-    .card-footer a{
-      color: gray;
-    }
-    .card-footer p{
-      margin: 4px 0;
-      overflow: hidden;
-    }
-    hr{
-      background-color: rgb(233, 229, 229);
-      width: 100%;
-      height: 5px;
-      /* hr有外框 */
-      border: none;
-      margin: 15px 0px;
-    }
-    .hot-video{
-      font-size: 18px;
-    }
-
-    /* sidebar */
-    .menu{
-      /* background-color: pink; */
-      border-bottom: 1px solid lightgray;
-      font-size: 0.9rem;
-      padding: 8px 0;
-    }
-    .menu li{
-      width: 100%;
-      height: 40px;
-      /* 不能用此法推開，會點不到a */
-      /* padding: 0 24px; */
-      line-height: 40px;
-    }
-    .menu li:hover{
-      background-color: rgb(244, 243, 243);
-    }
-    .menu li a{
-      display: block;
-    }
-    .menu li i{
-      /* icon每個不一樣大，要給寬度統一 */
-      width: 20px;
-      margin: 0 1.5rem;
-      font-size: 1.1rem;
-      vertical-align: middle;
-    }
-    .menu .title{
-      height: 35px;
-      line-height: 35px;
-      margin: 0 1.5rem;
-    }
-    .menu p{
-      line-height: 1.1rem;
-    }
-    .menu .login{
-      width: 90px;
-      text-align: center;
-      margin-top: 1rem;
-      padding: 0.5rem;
-      border: 1px solid blue;
-      border-radius: 2px;
-    }
-    .menu .login i{
-      color: blue;
-      font-size: 1rem;
-    }
-    .menu .content{
-      padding: 16px 32px;
-    }
-    .footer{
-      margin: 16px 24px 0;
-    }
-    .footer p{
-      margin-bottom: 12px;
-    }
+        6.br無法更改本身高度?
+        7.捲軸無法設定margin padding */
     </style>
 </head>
 <body>
@@ -434,7 +71,7 @@
     </ul>
   </div>
 <!-- 左側選單 -->
-  <div id="sidebar">
+  <div id="sidebar" class="scroll">
     <div class="menu">
       <ul>
         <li><a href="#"><i class="fa-solid fa-house"></i>首頁</a></li>
@@ -495,7 +132,7 @@
     
   </div>
 <!-- 主要內容 -->
-  <div id="main">
+  <div id="main" class="scroll2">
     <div class="container">
       <table>
         <tr>
@@ -727,7 +364,6 @@
       <br>
       <hr>
       <br>
-
       <table>
         <tr>
           <td>
