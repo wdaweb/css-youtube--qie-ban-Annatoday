@@ -14,17 +14,19 @@
   <!-- 此檔案的外部樣式表 -->
   <link rel="stylesheet" href="./css/style.css">
   <!-- ./webfonts/  => font awesome  -->
-  <!-- <link rel="stylesheet" href="./webfonts/"> -->
+  <link rel="stylesheet" href="./webfonts/">
 
   <style>
-    /* 未完成小效果:浮起來放大 */
+    /* 未完成小效果: 滾輪樣式、自型、td浮起來放大 */
     /* 重新排版 
         1.高度用px較好，%不易計算:行高對齊時，%數值會過大
         導覽列再修正
         2.乖乖定位，只用%推開，縮放位置會大跑版(navbar1)。
         3.導覽列01左右浮動+中間設左右margin:0 auto可真正置中(要有寬度)，其實是佔一整行。若search轉inline-block，會排在logo後方(確切原因?)。
         4.float、字型再研究
-        5.div用浮動緊黏父元素上緣推不開，整塊用行高沒用，要用margin推 */
+        5.div用浮動緊黏父元素上緣推不開，整塊用行高沒用，要用margin推
+        6.br無法更改本身高度? */
+        
     
     *{
       margin: 0;
@@ -78,6 +80,8 @@
       top: 55px;
       width: 240px;
       height: calc(100% - 55px);
+      overflow-y: scroll;
+      overflow-x: hidden;
     }
     #main{
       /* background-color: lightgrey; */
@@ -331,11 +335,62 @@
     .hot-video{
       font-size: 18px;
     }
+
     /* sidebar */
     .menu{
-      background-color: pink;
-      padding: 0 24px;
+      /* background-color: pink; */
       border-bottom: 1px solid lightgray;
+      font-size: 0.9rem;
+      padding: 8px 0;
+    }
+    .menu li{
+      width: 100%;
+      height: 40px;
+      /* 不能用此法推開，會點不到a */
+      /* padding: 0 24px; */
+      line-height: 40px;
+    }
+    .menu li:hover{
+      background-color: rgb(244, 243, 243);
+    }
+    .menu li a{
+      display: block;
+    }
+    .menu li i{
+      /* icon每個不一樣大，要給寬度統一 */
+      width: 20px;
+      margin: 0 1.5rem;
+      font-size: 1.1rem;
+      vertical-align: middle;
+    }
+    .menu .title{
+      height: 35px;
+      line-height: 35px;
+      margin: 0 1.5rem;
+    }
+    .menu p{
+      line-height: 1.1rem;
+    }
+    .menu .login{
+      width: 90px;
+      text-align: center;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border: 1px solid blue;
+      border-radius: 2px;
+    }
+    .menu .login i{
+      color: blue;
+      font-size: 1rem;
+    }
+    .menu .content{
+      padding: 16px 32px;
+    }
+    .footer{
+      margin: 16px 24px 0;
+    }
+    .footer p{
+      margin-bottom: 12px;
     }
     </style>
 </head>
@@ -384,23 +439,25 @@
       <ul>
         <li><a href="#"><i class="fa-solid fa-house"></i>首頁</a></li>
         <li><a href="#"><i class="fa-solid fa-compass"></i>探索</a></li>
-        <li><a href="#"><i class="fa-solid fa-ticket"></i>Short</a></li>
+        <li><a href="#"><i class="fa-solid fa-ticket"></i>Shorts</a></li>
         <li><a href="#"><i class="fa-solid fa-display"></i>訂閱內容</a></li>
       </ul>
     </div>
     <div class="menu">
       <ul>
-        <li><i class="fa-solid fa-notes-medical"></i>媒體庫</a></li>
+        <li><a href="#"><i class="fa-solid fa-notes-medical"></i>媒體庫</a></li>
         <li><a href="#"><i class="fa-solid fa-clock-rotate-left"></i>觀看紀錄</a></li>
       </ul>
     </div>
     <div class="menu">
-      <span>登入帳戶即可對影片表示喜歡、發布留言及訂閱頻道。</span>
-      <img src="" alt="">
+      <div class="content">
+        <p>登入帳戶即可對影片表示喜歡、發布留言及訂閱頻道。</p>
+        <div class="login"><a href="#"><i class="fa-solid fa-circle-user">&nbsp;登入</i></a></div>
+      </div>
     </div>
     <div class="menu">
       <ul>
-        <span>YOUTUBE精選</span>
+        <p class="title">YOUTUBE 精選</p>
         <li><a href="#"><i class="fa-solid fa-music"></i>音樂</a></li>
         <li><a href="#"><i class="fa-solid fa-trophy"></i>體育</a></li>
         <li><a href="#"><i class="fa-solid fa-gamepad"></i>遊戲</a></li>
@@ -412,46 +469,27 @@
     </div>
     <div class="menu">
       <ul>
-        <li>瀏覽頻道</li>
+        <li><a href="#"><i class="fa-solid fa-circle-plus"></i>瀏覽頻道</a></li>
       </ul>
     </div>
     <div class="menu"><ul>
-      <span>更多 YouTube功能</span>
-      <li>YouTube Premium</li>
-      <li>直播</li>
+      <p class="title">更多 YouTube功能</p>
+      <li><a href="#"><i class="fa-brands fa-youtube"></i>YouTube Premium</a></li>
+      <li><a href="#"><i class="fa-solid fa-wifi"></i>直播</a></li>
     </ul></div>
     <div class="menu">
       <ul>
-        <li>設定</li>
-        <li>檢舉紀錄</li>
-        <li>說明</li>
-        <li>提供意見</li>
+        <li><a href="#"><i class="fa-solid fa-gear"></i>設定</a></li>
+        <li><a href="#"><i class="fa-brands fa-font-awesome"></i>檢舉紀錄</a></li>
+        <li><a href="#"><i class="fa-solid fa-circle-question"></i>說明</a></li>
+        <li><a href="#"><i class="fa-solid fa-circle-exclamation"></i>提供意見</a></li>
       </ul>
     </div>
     <div class="menu">
       <div class="footer">
-        <ul>
-          <li>簡介</li>
-          <li>媒體</li>
-          <li>版權</li>
-          <li>與我們聯絡</li>
-          <li>創作者</li>
-          <li>廣告</li>
-          <li>開發人員</li>
-        </ul>
-        <br>
-        <ul>
-          <li>條款</li>
-          <li>隱私權</li>
-          <li>政策與安全性</li>
-          <li>YouTube運作方式</li>
-          <li>測試新功能</li>
-        </ul>
-        <br>
-        <ul>
-          <li>&copy;2022 Google LLC</li>
-        </ul>
-        
+          <p>簡介 媒體 版權 與我們聯絡 創作者 廣告 開發人員</p>
+          <p>條款 隱私權 政策與安全性 YouTube運作方式 測試新功能</p>
+          <p>&copy;2022 Google LLC</p>
       </div>
     </div>
     
