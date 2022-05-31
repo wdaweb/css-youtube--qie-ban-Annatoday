@@ -9,53 +9,58 @@
 html,
 body{
   height: 100%;
-  /* overflow: hidden; */
+  font-family: "Roboto","Arial",sans-serif;
 }
 a{
   text-decoration: none;
   color: black;
-  /* 要用再各自開 */
-  /* display: block; */
+  /* 要用再各自開 display: block; */
 }
 
 /* 基本版面 */
 #navbar01{
-  /* background-color: greenyellow; */
-  /* border-bottom: 1px solid lightgray; */
-  width: 100%;
+  /* 左方無線，改navbar02給線。border-bottom: 1px solid lightgray; */
+  /* 背景其實有透明度 */
+  background-color: rgba(255, 255, 255, 0.960);
+  width: calc(100% - 15px);
   height: 55px;
+
   position: fixed;
   top: 0;
   left: 0;
-  /* overflow: hidden; */
-  /* 保有對齊效果，而後方的元素也不會被遮蓋。 */
-  /* clear: both; */
+  
+  z-index: 3;
 }
 #navbar02{
-  /* background-color: lemonchiffon; */
-  border-top: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
-  
+  background-color:rgba(255, 255, 255, 0.960);
+  border-top: 1px solid rgb(225, 225, 225);
+  border-bottom: 1px solid rgb(225, 225, 225);
+  /* 240+15推開=255 */
+  width: calc(100% - 255px);
+  height: 55px;
+
   position: fixed;
   left: 240px;
   top: 55px;
-  width: calc(100% - 235px);
-  height: 55px;
+
   text-align: center;
   font-size: 0;
+  z-index: 2;
 }
 #sidebar{
   /* background-color: aqua; */
+  width: 240px;
+  height: calc(100% - 55px);
+
   position: fixed;
   left: 0;
   top: 55px;
-  width: 240px;
-  height: calc(100% - 55px);
-  overflow-y: auto;
+  
+  overflow-y: scroll;
   overflow-x: hidden;
 }
 /* sidebar捲軸 */
-/* 寬度 */
+/* 寬度，高無法設定 */
 .scroll::-webkit-scrollbar{
   width: 8px;
 }
@@ -64,23 +69,22 @@ a{
   background: rgb(255, 255, 255);
   border-radius: 20px 20px ;
 }
+/* 軌道背景顏色 */
+.scroll::-webkit-scrollbar-track{
+  background: rgb(255, 255, 255);;
+}
+/* 滑鼠滑過的 把手顏色*/
 .scroll::-webkit-scrollbar-thumb:hover{
   background: rgb(148, 148, 148);
   border-radius: 20px 20px ;
 }
-/* 背景顏色 */
-.scroll::-webkit-scrollbar-track{
-  background: #fff;
-}
-
 #main{
-  background-color: rgba(239, 239, 239, 0.306);
-  width: calc(100% - 240px);
-  height: calc(100% - 110px);
+  background-color: rgb(250, 250, 250);
+  width: calc(100% - 243px);
+  height: 100%;
+
   float: right;
-  position: relative;
-  top: 110px;
-  /* font-family: "Roboto","Arial",sans-serif; */
+  overflow-x: hidden;
   overflow-y: scroll;
   /* 補把手空隙 */
   margin-right: 3px;
@@ -93,21 +97,19 @@ a{
 /* 把手顏色 */
 .scroll2::-webkit-scrollbar-thumb{
   background: rgb(148, 148, 148);
-  border-radius: 20px 20px ;
+  border-radius: 20px 20px;
 }
-/* 背景顏色 */
+/* 軌道背景顏色 */
 .scroll2::-webkit-scrollbar-track{
-  background: #fff;
+  background: rgb(250, 250, 250);
 }
+/* 給內容置中用 */
 .container{
   /* background-color: plum; */
   width: 90%;
-  height: 100%;
   margin: auto;
-  margin-top: 25px;
 }
 /* 各部分設定 */
-
 /* navbar01 */
 /* 平行、置中 */
 #navbar01 .menu-line,
@@ -116,7 +118,6 @@ a{
 #navbar01 .account{
   line-height: 55px;
 }
-
 /* 左側*/
 #navbar01 .navbar01-left{
   width: 240px;
@@ -131,12 +132,12 @@ a{
 }
 #navbar01 .menu-line{
   font-size: 20px;
-  padding: 0 25px;
-}
-/* 不!點擊效果下去鄰居也動了!!而且沒從中心點出發。此細節有機會再處理 */
-/* #navbar01 .menu-line a{
-  display: block;
   padding: 0 10px;
+}
+/* 點擊效果，底色灰圓 */
+#navbar01 .menu-line a{
+  display: block;
+  padding: 0 16px;
 }
 #navbar01 .menu-line a:active{
   width: 50px;
@@ -144,7 +145,7 @@ a{
   border-radius: 50px;
   border: none;
   background-color: lightgrey;
-} */
+}
 .logo img{
   /* a其實會佔位? */
   /* height: 55px; 圖比例會壞掉*/
@@ -154,14 +155,12 @@ a{
 }
 #navbar01 .mark{
   font-size: 10px;
-  padding:0 2px;
-  margin-top: 10px;
+  margin: 10px 0 0 2px;
 }
 /* 右側 */
 #navbar01 .account{
-  /* width: 235px; */
-  height: 55px;
   /* background-color: #000; */
+  height: 55px;
 }
 #navbar01 .account,
 #navbar01 .sign_in,
@@ -195,7 +194,6 @@ a{
   /* 真．置中 */
   width: 650px;
   margin: 0 auto;
-
   /* 不準確的置中 */
   /* display: inline-block; */
   /* position: relative; */
@@ -224,7 +222,6 @@ a{
   font-size: 1rem;
   border-radius: 2px 0 0 2px;
   border-right: none;
-  
 }
 .search-btn{
   width: 65px;
@@ -266,7 +263,7 @@ a{
   /* display: block; */
 }
 #navbar02 ul a:hover{
-  background-color: rgb(224, 217, 217);
+  background-color: rgb(224, 221, 221);
   transition: 0.3s;
 }
 #navbar02 li:nth-child(1) a{
@@ -274,23 +271,31 @@ a{
   color: white;
 }
 /* main */
+#main table:nth-child(1){
+  /* 避開導覽列高度55+55 +20 */
+  margin-top: 130px;
+}
 table{
   width: 100%;
   /* border: 1px solid black; */
   border-collapse: collapse;
-  /* table似乎自己推不開 */
-  /* margin-top: 25px 0; */
 }
 td{
   /* border: 1px solid black; */
   width: 25%;
-  padding-bottom: 30px;
+  padding-bottom: 25px;
+  padding-right: 15px;
 }
 .card{
   width: 100%;
-  /* height: 50%; */
-  /* background-color: aqua; */
-  padding: 0 8px;
+  height: 320px;
+}
+.card:hover{
+  overflow: hidden;
+  /* 滑過放大效果 */
+  transform: scale(1.1);
+  transition: all 0.5s ease-out;
+  background-color: white;
 }
 .card img{
   width: 100%;
@@ -302,22 +307,23 @@ td{
   height: 40px;
   border-radius: 40px;
   margin-right: 5px;
-  
-}
-.card-body .author{
-  display: inline-block;
-  
 }
 .card-body .title{
-  font-size: 16px;
   display: inline-block;
+  font-size: 16px;
   width: calc(100% - 45px);
   overflow: hidden;
   vertical-align: middle;
+  line-height: 20px;
+/* 文字溢出... */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 .card-footer{
   margin-top: 5px;
-  font-size: 13px;
+  font-size: 14px;
   color: gray;
   margin-left: 45px;
   /* display: inline-block; */
@@ -327,7 +333,6 @@ td{
 }
 .card-footer p{
   margin: 4px 0;
-  overflow: hidden;
 }
 hr{
   background-color: rgb(233, 229, 229);
@@ -340,7 +345,6 @@ hr{
 .hot-video{
   font-size: 18px;
 }
-
 /* sidebar */
 .menu{
   /* background-color: pink; */
@@ -358,6 +362,7 @@ hr{
 }
 .menu li:hover{
   background-color: rgb(228, 228, 228);
+  width: calc(100%-3px);
 }
 .menu li a{
   display: block;
@@ -398,9 +403,19 @@ hr{
   padding: 16px 29px;
 }
 .footer{
-  margin: 16px 23px 0;
-  cursor: pointer;
+  padding: 16px 24px;
+  /* cursor: pointer; */
 }
 .footer p{
-  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgb(105, 105, 105);
+  margin-bottom: 10px;
+  
+}
+.footer a{
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(105, 105, 105);
+  margin-right: 8px;
 }

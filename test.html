@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  *{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      box-sizing: border-box;
+      /* debug用 */
+      outline: 1px solid purple;
+    }
+  #big{
+    width: 100%;
+    height: 55px;
+    background-color: pink;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .left,.right{
+    width: 200px;
+    height: 55px;
+    background-color: rgba(48, 43, 43, 0.247);
+  }
+  .left{
+    float: left;
+  }
+  .right{
+    float: right;
+  }
+  .center{
+    width: 200px;
+    height: 50px;
+    background-color: orange;
+    /* display: inline-block; */
+    /* margin: 0 200px; */
+    margin: 0 auto;
+  }
+  .center-s{
+    width: 200px;
+    height: 55px;
+    border: 1px solid black;
+    /* background-color: green; */
+    display: inline-block;
+  }
+</style>
+<body>
+  <div id="big">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="center">
+      <div class="center-s"></div>
+    </div>
+  </div>
+  
+</body>
+</html>
